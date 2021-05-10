@@ -1,5 +1,13 @@
+# Intellij IDEA files
+/.idea
+**/*.iml
+
+# Maven files
+.mvn
+
 # Compiled class file
-*.class
+**/*.class
+**/*target
 
 # Log file
 *.log
