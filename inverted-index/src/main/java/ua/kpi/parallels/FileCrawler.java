@@ -21,9 +21,16 @@ public class FileCrawler implements Runnable {
     public void run() {
         try {
             crawl(root);
-            System.out.println("number of files: " + i);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+        }
+        finally {
+            while (true) {
+                try {
+                    fileQueue.put(Main.POISON);
+                    break;
+                } catch (InterruptedException e1) { /* retry */ }
+            }
         }
     }
 

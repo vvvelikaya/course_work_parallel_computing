@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 
-public class Indexer implements Runnable{
+public class Indexer implements Runnable {
 
     private final BlockingQueue<File> queue;
     private InvertedIndex invertedIndex;
@@ -19,7 +19,16 @@ public class Indexer implements Runnable{
     public void run() {
         try {
             while (true) {
-                indexFile(queue.take());
+                if (!Main.stop) {
+                    File file = queue.take();
+                    if (file == Main.POISON) {
+                        Main.stop = true;
+                        break;
+                    }
+                    indexFile(file);
+                } else {
+                    break;
+                }
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -31,6 +40,7 @@ public class Indexer implements Runnable{
             Set<String> terms = ParserUtil.parseFile(file.getAbsolutePath());
             for (String term : terms) {
                 System.out.println(term);
+                invertedIndex.add(term, file.getName());
             }
         } catch (IOException e) {
             e.printStackTrace();
