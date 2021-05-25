@@ -9,7 +9,6 @@ public class FileCrawler implements Runnable {
     private final BlockingQueue<File> fileQueue;
     private final FileFilter fileFilter;
     private final File root;
-    int i = 0;
 
     public FileCrawler(BlockingQueue<File> fileQueue, FileFilter fileFilter, File root) {
         this.fileQueue = fileQueue;

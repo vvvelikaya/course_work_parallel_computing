@@ -23,15 +23,17 @@ public class ParserUtil {
             "on", "only", "or", "other", "our", "own", "rather", "said", "say",
             "says", "she", "should", "since", "so", "some", "than", "that",
             "the", "their", "them", "then", "there", "these", "they", "this",
-            "tis", "to", "too", "twas", "us", "wants", "was", "we", "were",
+            "to", "too", "twas", "us", "wants", "was", "we", "were",
             "what", "when", "where", "which", "while", "who", "whom", "why",
-            "will", "with", "would", "yet", "you", "your");
+            "will", "with", "would", "yet", "you", "your", "yours");
 
     public static Set<String> parseFile(String filePath) throws IOException {
         Set<String> terms = Files.lines(Paths.get(filePath))
-                .map(line -> line.split(" |\\.|\\,|\\;|\\-|\"|\\'"))
+                .map(line -> line.split("\\s+|\\.|\\,|\\;|\\:|\\-|\"|\\'|\\d|\\)|\\(|\\<|\\>|\\/|\\_|\\?|\\!|\\W|\\n|\\t"))
                 .flatMap(Arrays::stream)
+                .map(String::toLowerCase)
                 .filter(word -> !stopWords.contains(word))
+                .filter(word -> word.length()>2)
                 .collect(Collectors.toSet());
         return terms;
     }
