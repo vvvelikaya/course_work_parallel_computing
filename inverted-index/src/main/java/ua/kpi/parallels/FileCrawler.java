@@ -32,13 +32,15 @@ public class FileCrawler implements Runnable {
         if (entries != null) {
             for (File entry : entries) {
                 if (entry.isDirectory()) {
-                    System.out.println(entry.getName());
                     crawl(entry);
                 } else {
-                    System.out.println(entry.getName());
-                    i++;
+                    fileQueue.put(entry);
                 }
             }
         }
+    }
+
+    private boolean isIndexed(File file) {
+        return false;
     }
 }
