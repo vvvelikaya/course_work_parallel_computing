@@ -2,6 +2,7 @@ package ua.kpi.parallels;
 
 import ua.kpi.parallels.services.IndexService;
 import ua.kpi.parallels.services.ParallelService;
+import ua.kpi.parallels.services.SerialService;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,6 +17,7 @@ public class ConsoleController {
     public static IndexService chooseMode() throws IOException {
         System.out.println("Choose mode:\n1 - serial\n2 - parallel");
         switch (reader.readLine()) {
+            case "1": return new SerialService();
             case "2":
                 System.out.println("Enter number of indexing threads:");
                 return new ParallelService(Integer.parseInt(reader.readLine()));
