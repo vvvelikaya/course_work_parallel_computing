@@ -47,8 +47,4 @@ public class FileCrawler implements Runnable {
             }
         }
     }
-
-    private boolean isIndexed(File file) {
-        return false;
-    }
 }

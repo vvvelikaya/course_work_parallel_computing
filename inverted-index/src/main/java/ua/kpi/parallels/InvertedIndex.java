@@ -28,6 +28,10 @@ public class InvertedIndex {
     }
 
     public Set<File> find(String term) {
+        Set<File> docs = index.get(term);
+        if (docs == null) {
+            return new HashSet<>();
+        }
         return index.get(term);
     }
 }
