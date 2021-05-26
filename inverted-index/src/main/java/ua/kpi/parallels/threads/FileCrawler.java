@@ -1,4 +1,4 @@
-package ua.kpi.parallels;
+package ua.kpi.parallels.threads;
 
 import ua.kpi.parallels.services.ParallelService;
 

@@ -1,7 +1,7 @@
 package ua.kpi.parallels.services;
 
-import ua.kpi.parallels.FileCrawler;
-import ua.kpi.parallels.Indexer;
+import ua.kpi.parallels.threads.FileCrawler;
+import ua.kpi.parallels.threads.Indexer;
 import ua.kpi.parallels.InvertedIndex;
 import ua.kpi.parallels.Main;
 
