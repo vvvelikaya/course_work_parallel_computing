@@ -1,5 +1,7 @@
 package ua.kpi.parallels;
 
+import ua.kpi.parallels.services.ParallelService;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.util.concurrent.BlockingQueue;
@@ -26,7 +28,7 @@ public class FileCrawler implements Runnable {
         finally {
             while (true) {
                 try {
-                    fileQueue.put(Main.POISON);
+                    fileQueue.put(ParallelService.POISON);
                     break;
                 } catch (InterruptedException e1) { /* retry */ }
             }
