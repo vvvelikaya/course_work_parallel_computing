@@ -1,30 +1,33 @@
 package ua.kpi.parallels;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InvertedIndex {
 
-    private Map<String, List<String>> index = new ConcurrentHashMap<>();
+    private Map<String, Set<File>> index = new ConcurrentHashMap<>();
 
-    public Map<String, List<String>> getIndex() {
+    public Map<String, Set<File>> getIndex() {
         return index;
     }
 
-    public void setIndex(ConcurrentHashMap<String, List<String>> index) {
+    public void setIndex(Map<String, Set<File>> index) {
         this.index = index;
     }
 
-    public void add(String term, String doc) {
-        if(!index.containsKey(term)) {
-            ArrayList<String> docsList = new ArrayList<>();
+    public void add(String term, File doc) {
+        if (!index.containsKey(term)) {
+            Set<File> docsList = new HashSet<>();
             docsList.add(doc);
             index.put(term, docsList);
         } else {
-            List<String> docsList = index.get(term);
+            Set<File> docsList = index.get(term);
             docsList.add(doc);
         }
+    }
+
+    public Set<File> find(String term) {
+        return index.get(term);
     }
 }
