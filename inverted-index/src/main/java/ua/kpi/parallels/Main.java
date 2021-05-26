@@ -2,12 +2,14 @@ package ua.kpi.parallels;
 
 import ua.kpi.parallels.services.IndexService;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 
 public class Main {
 
+    public final static File root = new File("D:\\Nika\\Документы\\data_for_indexing\\aclImdb");
     static InvertedIndex invertedIndex = new InvertedIndex();
 
     public static void main(String[] args) {

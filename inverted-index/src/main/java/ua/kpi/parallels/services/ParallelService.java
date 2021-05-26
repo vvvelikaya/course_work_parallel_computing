@@ -3,6 +3,7 @@ package ua.kpi.parallels.services;
 import ua.kpi.parallels.FileCrawler;
 import ua.kpi.parallels.Indexer;
 import ua.kpi.parallels.InvertedIndex;
+import ua.kpi.parallels.Main;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -15,7 +16,6 @@ public class ParallelService implements IndexService {
     private final static int BOUND = 1000;
     private final int N_CONSUMERS;
 
-    static final File root = new File("D:\\Nika\\Документы\\data_for_indexing\\aclImdb");
 
     public ParallelService(int N_CONSUMERS) {
         this.N_CONSUMERS = N_CONSUMERS;
@@ -30,7 +30,7 @@ public class ParallelService implements IndexService {
             }
             return true;
         };
-        Thread producer = new Thread(new FileCrawler(queue, filter, root));
+        Thread producer = new Thread(new FileCrawler(queue, filter, Main.root));
         Thread[] consumers = new Thread[N_CONSUMERS];
 
         producer.start();

@@ -1,6 +1,7 @@
 package ua.kpi.parallels.services;
 
 import ua.kpi.parallels.InvertedIndex;
+import ua.kpi.parallels.Main;
 import ua.kpi.parallels.ParserUtil;
 
 import java.io.File;
@@ -15,7 +16,6 @@ public class SerialService implements IndexService {
     private List<File> files = new ArrayList<>();
     FileFilter fileFilter;
 
-    static final File root = new File("D:\\Nika\\Документы\\data_for_indexing\\aclImdb");
 
     @Override
     public void buildIndex(InvertedIndex index) {
@@ -26,7 +26,7 @@ public class SerialService implements IndexService {
             return true;
         };
         try {
-            crawl(root);
+            crawl(Main.root);
             for (File file : files) {
                 indexFile(file, index);
             }
