@@ -1,5 +1,7 @@
 package ua.kpi.parallels;
 
+import ua.kpi.parallels.services.ParallelService;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
@@ -8,6 +10,7 @@ import java.util.concurrent.BlockingQueue;
 public class Indexer implements Runnable {
 
     private final BlockingQueue<File> queue;
+    private static volatile boolean stop = false;
     private InvertedIndex invertedIndex;
 
     public Indexer(BlockingQueue<File> queue, InvertedIndex invertedIndex) {
@@ -18,17 +21,13 @@ public class Indexer implements Runnable {
     @Override
     public void run() {
         try {
-            while (true) {
-                if (!Main.stop) {
-                    File file = queue.take();
-                    if (file == Main.POISON) {
-                        Main.stop = true;
-                        break;
-                    }
-                    indexFile(file);
-                } else {
+            while (!stop) {
+                File file = queue.take();
+                if (file == ParallelService.POISON) {
+                    stop = true;
                     break;
                 }
+                indexFile(file);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -39,8 +38,7 @@ public class Indexer implements Runnable {
         try {
             Set<String> terms = ParserUtil.parseFile(file.getAbsolutePath());
             for (String term : terms) {
-                System.out.println(term);
-                invertedIndex.add(term, file.getName());
+                invertedIndex.add(term, file);
             }
         } catch (IOException e) {
             e.printStackTrace();
