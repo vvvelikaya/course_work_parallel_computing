@@ -28,7 +28,7 @@ public class ParserUtil {
 
     public static Set<String> parseFile(String filePath) throws IOException {
         return Files.lines(Paths.get(filePath))
-                .map(line -> line.split("\\s+|\\.|,|;|:|-|\"|'|\\d|\\)|\\(|<|>|/|_|\\?|!|\\W|\\n|\\t"))
+                .map(line -> line.split("[^a-zA-Z]"))
                 .flatMap(Arrays::stream)
                 .map(String::toLowerCase)
                 .filter(word -> !stopWords.contains(word))
