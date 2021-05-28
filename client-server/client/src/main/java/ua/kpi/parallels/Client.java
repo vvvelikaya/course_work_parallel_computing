@@ -56,8 +56,7 @@ public class Client {
         out.println(msg); //записуємо повідомлення у сокет
         String resp;
         try {
-            while (!(resp = in.readLine()).equals("end")) {
-                //очікуємо відповіді від серверу (зчитуємо його запис у сокет)
+            while (!(resp = in.readLine()).equals("end")) {//очікуємо відповіді від серверу (зчитуємо його запис у сокет)
                 System.out.println(resp);
             }
         } catch (IOException e) {

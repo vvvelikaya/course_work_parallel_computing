@@ -34,9 +34,9 @@ public class SerialService implements IndexService {
             }
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Some thread was interrupted");;
         } catch (IOException c) {
-            c.printStackTrace();
+            System.out.println("I/O mistake");
         }
         return index;
     }

@@ -13,7 +13,7 @@ public class Indexer implements Runnable {
 
     private final BlockingQueue<File> queue;
     private static volatile boolean stop = false;
-    private InvertedIndex invertedIndex;
+    private final InvertedIndex invertedIndex;
 
     public Indexer(BlockingQueue<File> queue, InvertedIndex invertedIndex) {
         this.queue = queue;

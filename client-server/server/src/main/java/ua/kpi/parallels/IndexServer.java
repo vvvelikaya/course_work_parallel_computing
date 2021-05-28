@@ -12,7 +12,6 @@ import java.util.*;
 
 public class IndexServer {
 
-//    private Socket clientSocket;
     private InvertedIndex invertedIndex;
     private final List<File> files = new ArrayList<>();
     private FileFilter fileFilter;
@@ -39,7 +38,6 @@ public class IndexServer {
                             out.println("Enter comma-separated words to find (or exit):");
                             String inputLine;
                             while (!(inputLine = in.readLine()).equals("exit")) {
-//                                System.out.println(Thread.currentThread().getName());
                                 System.out.println("Client(" + Thread.currentThread().getName() + ") input: " + inputLine); //дублюється повіомлення клієнта
                                 Set<File> intersection = findIntersection(inputLine);
                                 out.println("'" + inputLine + "' found in " + intersection.size() + " files");
