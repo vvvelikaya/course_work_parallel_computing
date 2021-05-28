@@ -12,6 +12,7 @@ import java.util.*;
 
 public class IndexServer {
 
+//    private Socket clientSocket;
     private InvertedIndex invertedIndex;
     private final List<File> files = new ArrayList<>();
     private FileFilter fileFilter;
@@ -34,11 +35,12 @@ public class IndexServer {
                     new Thread(() -> {
                         try (PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
-                            System.out.println("Client connected");
+                            System.out.println("Client(" + Thread.currentThread().getName() + ") connected");
                             out.println("Enter comma-separated words to find (or exit):");
                             String inputLine;
                             while (!(inputLine = in.readLine()).equals("exit")) {
-                                System.out.println("Client`s input: " + inputLine); //дублюється повіомлення клієнта
+//                                System.out.println(Thread.currentThread().getName());
+                                System.out.println("Client(" + Thread.currentThread().getName() + ") input: " + inputLine); //дублюється повіомлення клієнта
                                 Set<File> intersection = findIntersection(inputLine);
                                 out.println("'" + inputLine + "' found in " + intersection.size() + " files");
                                 for (File file : intersection) {
@@ -48,6 +50,13 @@ public class IndexServer {
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
+                        } finally {
+                            try {
+                                System.out.println("Client(" + Thread.currentThread().getName() + ") disconnected");
+                                clientSocket.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }).start();
                 } catch (IOException e) {
