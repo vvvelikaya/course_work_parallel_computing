@@ -1,8 +1,8 @@
 package ua.kpi.parallels.services;
 
-import ua.kpi.parallels.InvertedIndex;
+import ua.kpi.parallels.data.InvertedIndex;
 import ua.kpi.parallels.Main;
-import ua.kpi.parallels.ParserUtil;
+import ua.kpi.parallels.utils.ParserUtil;
 
 import java.io.File;
 import java.io.FileFilter;

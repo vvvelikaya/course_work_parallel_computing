@@ -2,7 +2,7 @@ package ua.kpi.parallels.services;
 
 import ua.kpi.parallels.threads.FileCrawler;
 import ua.kpi.parallels.threads.Indexer;
-import ua.kpi.parallels.InvertedIndex;
+import ua.kpi.parallels.data.InvertedIndex;
 import ua.kpi.parallels.Main;
 
 import java.io.File;

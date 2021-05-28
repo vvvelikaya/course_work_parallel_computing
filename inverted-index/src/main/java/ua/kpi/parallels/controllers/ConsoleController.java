@@ -1,5 +1,6 @@
-package ua.kpi.parallels;
+package ua.kpi.parallels.controllers;
 
+import ua.kpi.parallels.data.InvertedIndex;
 import ua.kpi.parallels.services.IndexService;
 import ua.kpi.parallels.services.ParallelService;
 import ua.kpi.parallels.services.SerialService;
@@ -42,7 +43,7 @@ public class ConsoleController {
         }
     }
 
-    private static Set<File> findIntersection(String input, InvertedIndex index) {
+    public static Set<File> findIntersection(String input, InvertedIndex index) {
         String[] words = input.split(", ");
         Set<File> intersection = new HashSet<>(index.find(words[0]));
         for (int i = 1; i < words.length; i++) {

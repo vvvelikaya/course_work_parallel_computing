@@ -1,4 +1,4 @@
-package ua.kpi.parallels;
+package ua.kpi.parallels.utils;
 
 import java.io.IOException;
 import java.nio.file.Files;

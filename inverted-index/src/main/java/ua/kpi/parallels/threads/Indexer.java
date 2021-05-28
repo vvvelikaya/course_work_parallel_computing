@@ -1,7 +1,7 @@
 package ua.kpi.parallels.threads;
 
-import ua.kpi.parallels.InvertedIndex;
-import ua.kpi.parallels.ParserUtil;
+import ua.kpi.parallels.data.InvertedIndex;
+import ua.kpi.parallels.utils.ParserUtil;
 import ua.kpi.parallels.services.ParallelService;
 
 import java.io.File;

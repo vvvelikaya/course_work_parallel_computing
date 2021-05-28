@@ -1,4 +1,4 @@
-package ua.kpi.parallels;
+package ua.kpi.parallels.data;
 
 import java.io.File;
 import java.util.*;

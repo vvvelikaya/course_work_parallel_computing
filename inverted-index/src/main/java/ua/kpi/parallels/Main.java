@@ -1,5 +1,7 @@
 package ua.kpi.parallels;
 
+import ua.kpi.parallels.controllers.ConsoleController;
+import ua.kpi.parallels.data.InvertedIndex;
 import ua.kpi.parallels.services.IndexService;
 
 import java.io.File;
