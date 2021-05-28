@@ -24,36 +24,35 @@ public class IndexServer {
     }
 
     public void run() {
-        try (ServerSocket serverSocket = new ServerSocket(PORT); //створення сокеру сервера
-             Socket clientSocket = serverSocket.accept();){//очікує під'єднання сокету клієнта
+        try {
+            ServerSocket serverSocket = new ServerSocket(PORT);//створення сокеру сервера
             System.out.println("Index server is running...");
+            buildIndex();
             while (true) {
-                new Thread(() -> {
-                    System.out.println("Client connected");
-                    buildIndex();
-                    try (PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
-                        out.println("Enter comma-separated words to find (or exit):");
-                        String inputLine;
-                        while (!(inputLine = in.readLine()).equals("exit")) {
-                            System.out.println("Client`s input: " + inputLine); //дублюється повіомлення клієнта
-                            Set<File> intersection = findIntersection(inputLine);
-                            out.println("'" + inputLine + "' found in " + intersection.size() + " files");
-                            for (File file : intersection) {
-                                out.println(file);
+                try {
+                    Socket clientSocket = serverSocket.accept();//очікує під'єднання сокету клієнта
+                    new Thread(() -> {
+                        try (PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
+                            System.out.println("Client connected");
+                            out.println("Enter comma-separated words to find (or exit):");
+                            String inputLine;
+                            while (!(inputLine = in.readLine()).equals("exit")) {
+                                System.out.println("Client`s input: " + inputLine); //дублюється повіомлення клієнта
+                                Set<File> intersection = findIntersection(inputLine);
+                                out.println("'" + inputLine + "' found in " + intersection.size() + " files");
+                                for (File file : intersection) {
+                                    out.println(file);
+                                }
+                                out.println("end");
                             }
-                            out.println("end");
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        try {
-                            clientSocket.close(); //закриваємо сокет клієнта
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }
-                }).start();
+                    }).start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
