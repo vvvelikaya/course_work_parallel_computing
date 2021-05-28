@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ParallelService implements IndexService {
 
@@ -22,7 +23,8 @@ public class ParallelService implements IndexService {
     }
 
     @Override
-    public void buildIndex(InvertedIndex index) {
+    public InvertedIndex buildIndex() {
+        InvertedIndex index = new InvertedIndex(new ConcurrentHashMap<>());
         BlockingQueue<File> queue = new ArrayBlockingQueue<>(BOUND);
         FileFilter filter = f -> {
             if (!f.isDirectory()) {
@@ -47,5 +49,6 @@ public class ParallelService implements IndexService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return index;
     }
 }

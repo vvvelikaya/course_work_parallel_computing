@@ -12,13 +12,13 @@ import java.time.Instant;
 public class Main {
 
     public final static File root = new File("D:\\Nika\\Документы\\data_for_indexing\\aclImdb");
-    static InvertedIndex invertedIndex = new InvertedIndex();
+    static InvertedIndex invertedIndex;
 
     public static void main(String[] args) {
         try {
             IndexService service = ConsoleController.chooseMode();
             Instant start = Instant.now();
-            service.buildIndex(invertedIndex);
+            invertedIndex = service.buildIndex();
             Instant finish = Instant.now();
             System.out.println("Time: " + Duration.between(start, finish).toMillis() + " ms");
             ConsoleController.readConsole(invertedIndex);

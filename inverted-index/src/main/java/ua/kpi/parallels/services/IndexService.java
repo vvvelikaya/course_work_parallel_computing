@@ -5,6 +5,6 @@ import ua.kpi.parallels.data.InvertedIndex;
 
 public interface IndexService {
 
-    void buildIndex(InvertedIndex index) throws InterruptedException;
+    InvertedIndex buildIndex() throws InterruptedException;
 
 }

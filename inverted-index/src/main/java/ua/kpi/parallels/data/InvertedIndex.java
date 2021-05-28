@@ -2,11 +2,14 @@ package ua.kpi.parallels.data;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class InvertedIndex {
 
-    private Map<String, Set<File>> index = new ConcurrentHashMap<>();
+    private Map<String, Set<File>> index;
+
+    public InvertedIndex(Map<String, Set<File>> index) {
+        this.index = index;
+    }
 
     public Map<String, Set<File>> getIndex() {
         return index;

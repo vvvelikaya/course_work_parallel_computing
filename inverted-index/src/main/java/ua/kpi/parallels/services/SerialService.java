@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,8 @@ public class SerialService implements IndexService {
 
 
     @Override
-    public void buildIndex(InvertedIndex index) {
+    public InvertedIndex buildIndex() {
+        InvertedIndex index = new InvertedIndex(new HashMap<>());
         fileFilter = f -> {
             if (!f.isDirectory()) {
                 return f.getName().endsWith("txt");
@@ -30,11 +32,13 @@ public class SerialService implements IndexService {
             for (File file : files) {
                 indexFile(file, index);
             }
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (IOException c) {
             c.printStackTrace();
         }
+        return index;
     }
 
     private void crawl(File root) throws InterruptedException {
